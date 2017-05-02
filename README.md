@@ -16,7 +16,7 @@ Reading notifications' body for keywords to set the flag's color and state:
     EXTRA_CONFUSED -> each LED a separate color
     COPS -> launch the US police pattern for 3 seconds before going back to the original state
     
-  These notification tests can be generated with the command 'notify-send " " \<keyword\>
+  These notification tests can be generated with the command 'notify-send " " \<keyword\>'
   
   If the notification is sent by Thunderbird, it flashes slowly in blue for 5 seconds then returns to the original state
   
