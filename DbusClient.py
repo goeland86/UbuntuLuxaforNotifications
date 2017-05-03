@@ -64,20 +64,6 @@ def notifications(bus, message):
             flag.do_strobe(state[0][0], state[0][1], state[0][2], state[0][3], 2, 3)
 
 
-
-DBusGMainLoop(set_as_default=True)
-
-session_bus = dbus.SessionBus()
-session_bus.add_match_string("type='method_call',interface='org.freedesktop.Notifications',member='Notify',eavesdrop=true")
-session_bus.add_message_filter(notifications)
-
-mainloop = GLib.MainLoop()
-mainloop.run()
-':
-            flag.do_strobe(state[0][0], state[0][1], state[0][2], state[0][3], 2, 3)
-
-
-
 DBusGMainLoop(set_as_default=True)
 
 session_bus = dbus.SessionBus()
