@@ -19,7 +19,7 @@ extra_confused = [
     [LuxaforFlag.LED_BACK_2, 0, 0, 255],
     [LuxaforFlag.LED_BACK_3, 255, 0, 255]
 ]
-blue = [[LuxaforFlag.LED_ALL, 0, 0, 255]]
+blue = [[LuxaforFlag.LED_BACK_1, 0, 0, 255]]
 
 state = green
 
@@ -34,14 +34,14 @@ def setColor(flagstatus):
 
 
 def notifications(bus, message):
-    #print(message)
+    # print(message)
     keys = ["app_name", "replaces_id", "app_icon", "summary","body", "actions", "hints", "expire_timeout"]
     args = message.get_args_list()
     if len(args) == 8:
         notification = dict([(keys[i], args[i]) for i in range(8)])
-        # print("app_name: " + notification["app_name"])
-        # print("summary: " + notification["summary"])
-        # print("body: " + notification["body"])
+       # print("app_name: " + notification["app_name"])
+       # print("summary: " + notification["summary"])
+       # print("body: " + notification["body"])
         if notification["body"] == 'BUSY':
             setColor(red)
         elif notification["body"] == 'QUIET':
@@ -56,12 +56,19 @@ def notifications(bus, message):
             setColor(confused)
         elif notification["body"] == 'EXTRA_CONFUSED':
             setColor(extra_confused)
-        elif notification["app_name"] == 'Thunderbird':
-            flag.do_strobe(blue[0][0], blue[0][1], blue[0][2], blue[0][3], 5, 5)
+        elif notification["app_name"] == "Thunderbird":
+            if "Successful" in notification["summary"] :
+                flag.do_strobe(green[0][0], green[0][1], green[0][2], green[0][3], 5, 5)
+            elif "Build Failed" in notification["summary"]:
+                flag.do_strobe(red[0][0], red[0][1], red[0][2], red[0][3], 5, 5)
+            elif "Build Unstable" in notification["summary"]:
+                flag.do_strobe(blue[0][0], yellow[0][1], yellow[0][2], yellow[0][3], 5, 5)
+            else:
+                flag.do_strobe(blue[0][0], blue[0][1], blue[0][2], blue[0][3], 5, 5)
             sleep(5)
             setColor(state)
         elif notification["app_name"] != 'Deezer' and notification["app_name"] != 'gnome-settings-daemon':
-            flag.do_strobe(state[0][0], state[0][1], state[0][2], state[0][3], 2, 3)
+            flag.do_strobe(state[0][0], state[0][1], state[0][2], state[0][3], 3, 5)
 
 
 DBusGMainLoop(set_as_default=True)
