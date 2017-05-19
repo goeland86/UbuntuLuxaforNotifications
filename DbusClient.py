@@ -67,6 +67,8 @@ def notifications(bus, message):
                 flag.do_strobe(blue[0][0], blue[0][1], blue[0][2], blue[0][3], 5, 5)
             sleep(5)
             setColor(state)
+        elif notification["body"] == 'LUNCH':
+            flag.do_pattern(LuxaforFlag.PATTERN_RAINBOWWAVE, 200)
         elif notification["app_name"] != 'Deezer' and notification["app_name"] != 'gnome-settings-daemon':
             flag.do_strobe(state[0][0], state[0][1], state[0][2], state[0][3], 3, 5)
 
