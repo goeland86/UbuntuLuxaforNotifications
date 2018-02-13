@@ -39,9 +39,6 @@ def notifications(bus, message):
     args = message.get_args_list()
     if len(args) == 8:
         notification = dict([(keys[i], args[i]) for i in range(8)])
-       # print("app_name: " + notification["app_name"])
-       # print("summary: " + notification["summary"])
-       # print("body: " + notification["body"])
         if notification["body"] == 'BUSY':
             setColor(red)
         elif notification["body"] == 'QUIET':
